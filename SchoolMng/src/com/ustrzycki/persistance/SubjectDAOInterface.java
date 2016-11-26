@@ -10,20 +10,16 @@ public interface SubjectDAOInterface {
 	
 	// Interface that all SubjectDAOs must support
 	
-	  public boolean insertSubject(Subject subject); 
-	  public boolean deleteSubject(Subject subject);
-	  public Subject selectSubjectByID(long id);
-	  public boolean updateSubject(Subject subject);
+	  public void insertSubject(Subject subject); 
+	  public void deleteSubject(Subject subject);
+	  public Subject selectSubjectByID(Long id);
+	  public Subject selectSubjectByName(String name); 
+	  public void updateSubject(Subject subject);
 	  public Collection<Subject> selectAllSubjectsTO();
-	  public Collection<Subject> selectSubjectByName(String name);
 	 
 	  
-	  ////////// pozosta³e metody do dodania póxniej
 	  
 	  /*
-	 
-	  
-	 
 	  public RowSet selectAllSubjectsRS();*/
 	  
 	  

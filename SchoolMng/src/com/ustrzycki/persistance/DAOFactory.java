@@ -22,9 +22,13 @@ public abstract class DAOFactory {
 	public static Connection createConnection() {
 
 		try {
+			
 			connection = DriverManager.getConnection(databaseUrl, user, password);
+			
+			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			throw new RuntimeException("Unable to Connect to Database!", e);
 		}
 
 		return connection;

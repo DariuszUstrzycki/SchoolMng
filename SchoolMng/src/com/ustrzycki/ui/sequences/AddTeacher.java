@@ -12,6 +12,11 @@ public class AddTeacher extends AbstractAddSequence {
 	public AddTeacher(ConsoleUI application, String menuName, String menuInstruction) {
 		super(application, menuName, menuInstruction);
 		
+	}
+	// Overridden methods ------------------------------------------------------------------------------------
+	
+	@Override
+	protected void matchPromptAction() {
 		promptList.add("");
 		actionsList.add(new RunnableInput(() -> inputPersonInfo(), false)); 
 		
@@ -28,9 +33,16 @@ public class AddTeacher extends AbstractAddSequence {
 				+ CONFIRMATION_KEY.toUpperCase() + " : Confirm the operation." + "\n" 
 				+ PREVIOUS_MENU_KEY.toUpperCase() + " : Abort the operation and quit to the previous menu.");
 		actionsList.add(new RunnableInput(() -> confirmAdded("Teacher"), true));
+		
+	}
+
+	@Override
+	public void addToDb() {
+	
 	}
 	
-	
+	// Methods ------------------------------------------------------------------------------------
+
 	// AddPersonSequence nie powinien miec takiego konstruktora
 	private final void inputPersonInfo() {
 		System.out.println("Creating Person...");
@@ -42,20 +54,18 @@ public class AddTeacher extends AbstractAddSequence {
 	}
 	
 	private final void inputGraduationInfo() {
-		teacherBuilder.graduationInfo(userInput);
+		teacherBuilder.graduationInfo(getInputValue());
 	}
 	
 	private final void createTeacher() {
 		teacher = teacherBuilder.build();
 		System.out.println(teacher.toString());
 	}
+	
+	
 
 
-	@Override
-	public boolean addToDb() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 
 	
 

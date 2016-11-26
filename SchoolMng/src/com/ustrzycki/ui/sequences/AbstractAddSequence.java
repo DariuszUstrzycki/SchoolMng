@@ -13,20 +13,14 @@ public abstract class AbstractAddSequence extends AbstractSequence {
 	}
 
 	final void confirmAdded(String objectName) {
-		if (userInput.equalsIgnoreCase(CONFIRMATION_KEY)) {
-			boolean added = addToDb();
-			
-			
-			if(added)
+		if (getInputValue().equalsIgnoreCase(CONFIRMATION_KEY)) {
+				addToDb();
 				System.out.println("---- " + objectName + " has been added to the database! ----\n");
-			else
-				System.out.println(objectName + " NOT added to the database.\n");
-				
 		} else {
 			throw new IllegalArgumentException("Ignoring menu choice! Only Q/q and C/c are valid!");
 		}
 	}
 	
-	public abstract boolean addToDb();
+	public abstract void addToDb();
 
 }

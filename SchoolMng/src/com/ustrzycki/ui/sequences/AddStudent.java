@@ -12,6 +12,12 @@ public class AddStudent extends AbstractAddSequence {
 	public AddStudent(ConsoleUI application, String menuName, String menuInstruction) {
 		super(application, menuName, menuInstruction);
 		
+		
+	}
+	// Overridden methods ------------------------------------------------------------------------------------
+	
+	@Override
+	protected void matchPromptAction() {
 		promptList.add("");
 		actionsList.add(new RunnableInput(() -> inputPersonInfo(), false));
 
@@ -28,9 +34,15 @@ public class AddStudent extends AbstractAddSequence {
 				+ " : Confirm the operation." + "\n" + PREVIOUS_MENU_KEY.toUpperCase()
 				+ " : Abort the operation and quit to the previous menu.");
 		actionsList.add(new RunnableInput(() -> confirmAdded("Student"), true));
+		
 	}
 
+	@Override
+	public void addToDb() {
 	
+	}
+
+	// Methods ------------------------------------------------------------------------------------
 
 	private final void inputPersonInfo() {
 
@@ -43,10 +55,10 @@ public class AddStudent extends AbstractAddSequence {
 	private final void inputScholarship() {
 
 		// optional parameter
-		if (!"".equals(userInput)) {
-			if (userInput.equalsIgnoreCase("Y"))
+		if (!"".equals(getInputValue())) {
+			if (getInputValue().equalsIgnoreCase("Y"))
 				studentBuilder.scholarship(true);
-			else if (userInput.equalsIgnoreCase("N"))
+			else if (getInputValue().equalsIgnoreCase("N"))
 				studentBuilder.scholarship(false);
 			else
 				throw new IllegalArgumentException("Ignoring menu choice! Only Y/y or N/n is valid!");
@@ -59,12 +71,5 @@ public class AddStudent extends AbstractAddSequence {
 
 	}
 
-
-
-	@Override
-	public boolean addToDb() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 }

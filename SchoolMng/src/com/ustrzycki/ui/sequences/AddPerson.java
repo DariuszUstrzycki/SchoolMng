@@ -14,10 +14,14 @@ public class AddPerson extends AbstractAddSequence {
 	private Person.PersonBuilder personBuilder = new Person.PersonBuilder();
 	private Person person;
 
-
 	public AddPerson(ConsoleUI application, String menuName, String menuInstruction) {
 		super(application, menuName, menuInstruction);
-		
+	}
+	
+	// Overridden methods ------------------------------------------------------------------------------------
+	
+	@Override
+	protected void matchPromptAction() {
 		promptList.add("Enter the first name: ");
 		actionsList.add(new RunnableInput(() -> inputFirstName(), true)); // string
 
@@ -37,28 +41,32 @@ public class AddPerson extends AbstractAddSequence {
 		
 		promptList.add("");
 		actionsList.add(new RunnableInput(() -> createPerson(), false)); // NO INPUT 
+		
+	}
+
+	@Override
+	public void addToDb() {
+		
 	}
 	
-	
+	// Methods ------------------------------------------------------------------------------------
 
-	
-	
 	private final void inputFirstName() {
-		personBuilder.firstName(userInput);
+		personBuilder.firstName(getInputValue());
 	}
 
 	private final void inputLasttName() {
-		personBuilder.lastName(userInput);
+		personBuilder.lastName(getInputValue());
 	}
 
 	private final void inputPESEL() {
-		personBuilder.pesel(userInput);
+		personBuilder.pesel(getInputValue());
 	}
 
 	private final void inputGender() {
-		if (userInput.equalsIgnoreCase("F"))
+		if (getInputValue().equalsIgnoreCase("F"))
 			personBuilder.gender(Gender.FEMALE);
-		else if (userInput.equalsIgnoreCase("M"))
+		else if (getInputValue().equalsIgnoreCase("M"))
 			personBuilder.gender(Gender.MALE);
 		else
 			throw new IllegalArgumentException("Only F or M is possible");
@@ -73,10 +81,10 @@ public class AddPerson extends AbstractAddSequence {
 
 		try {
 			
-			if ("".equals(userInput)) {
+			if ("".equals(getInputValue())) {
 				// ok for an optional parameter
 			} else{
-				String[] yearMonthDay = userInput.split("-");
+				String[] yearMonthDay = getInputValue().split("-");
 				LocalDate date = LocalDate.of(Integer.parseInt(yearMonthDay[0]), 
 											Integer.parseInt(yearMonthDay[1]),
 											Integer.parseInt(yearMonthDay[2]));
@@ -102,11 +110,13 @@ public class AddPerson extends AbstractAddSequence {
 
 
 
-	@Override
-	public boolean addToDb() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
+
+
+
+
+
+
 
 
 

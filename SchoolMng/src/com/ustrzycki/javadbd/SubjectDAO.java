@@ -13,27 +13,24 @@ import com.ustrzycki.persistance.SubjectDAOInterface;
 public class SubjectDAO implements SubjectDAOInterface {
 
 	@Override
-	public boolean insertSubject(Subject subject) {
+	public void insertSubject(Subject subject) {
 		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
-	public boolean deleteSubject(Subject subject) {
+	public void deleteSubject(Subject subject) {
 		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
-	public Subject selectSubjectByID(long id) {
+	public Subject selectSubjectByID(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean updateSubject(Subject subject) {
+	public void updateSubject(Subject subject) {
 		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
@@ -43,7 +40,7 @@ public class SubjectDAO implements SubjectDAOInterface {
 	}
 
 	@Override
-	public Collection<Subject> selectSubjectByName(String name) {
+	public Subject selectSubjectByName(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}

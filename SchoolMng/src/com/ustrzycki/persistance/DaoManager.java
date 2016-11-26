@@ -1,4 +1,4 @@
-package unused;
+package com.ustrzycki.persistance;
 
 public class DaoManager {
 	

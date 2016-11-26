@@ -9,12 +9,17 @@ import com.ustrzycki.ui.menus.AbstractMenu;
 
 public abstract class AbstractSequence extends Screen{
 	
-	String userInput;
+	private String inputValue;
 	AbstractMenu parentSubmenu;
 	
 	public AbstractSequence(ConsoleUI application, String menuName, String menuInstruction) {
 		super(application, menuName, menuInstruction);
+		
+		matchPromptAction();
 	}
+	
+	protected abstract void matchPromptAction();
+	
 	
 	public void showConsole(){
 		for (int c = 0; c < promptList.size(); c++) {
@@ -36,8 +41,7 @@ public abstract class AbstractSequence extends Screen{
 			
 			
 			if (method.isForInput()) {
-					//System.out.println("tesktowy IF");
-				
+				//System.out.println("tekstowy IF");
 				
 				repeatLoop = false;
 			}
@@ -48,16 +52,16 @@ public abstract class AbstractSequence extends Screen{
 
 				if (method.isForInput()) {
 							//System.out.println("Ready for input...");
-					userInput = getUserInput();
-					if (userInput.equalsIgnoreCase(PREVIOUS_MENU_KEY)) {
-						//System.out.println("Check on PREVIOUS_MENU_KEY");
+					inputValue = readUserInput();
+					if (inputValue.equalsIgnoreCase(PREVIOUS_MENU_KEY)) {
+							//System.out.println("Check on PREVIOUS_MENU_KEY");
 						activateParentMenu();
 					}
 				}
 				
 				//System.out.println("Runnable called...");
-
-				method.getRunnable().run();
+				
+					method.getRunnable().run();
 				
 				
 
@@ -72,8 +76,8 @@ public abstract class AbstractSequence extends Screen{
 				System.exit(1);
 			} catch (Exception e) {
 				System.out.println(FATAL_ERROR_MESSAGE);
-				System.out.println("Unknown exception in the input panel when prompt: " + prompt 
-									+ " and user input: " + userInput);
+				System.err.println(">>>>>>>>>>>>>>>>>>>>>\nException when taking input.\nPROMPT: \n''" + prompt 
+									+ "''\nUSER INPUTt:\n''" + inputValue + "''\n<<<<<<<<<<<<<<<<<<<<<\n");
 				e.printStackTrace();
 				System.exit(1);
 			}
@@ -88,18 +92,17 @@ public abstract class AbstractSequence extends Screen{
 		app.setActiveScreen(parentSubmenu);
 	}
 	
-	public String getUserInput() {
+	public String readUserInput() {
 		return scanner.nextLine();
 	}
 
 	public String generateText() {
 		return menuName;
 	}
-
-	/*public AbstractMenu getParentSubmenu() {
-		return parentSubmenu;
-	}*/
 	
+	public String getInputValue(){
+		return inputValue;
+	}
 	
 
 }
