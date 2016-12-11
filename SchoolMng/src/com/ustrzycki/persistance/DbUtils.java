@@ -106,8 +106,7 @@ public class DbUtils {
 	     * @throws SQLException If something fails during creating the PreparedStatement.
 	     */
 	    public static PreparedStatement prepareStatement
-	        (Connection connection, String sql, boolean returnGeneratedKeys, Object... values)
-	            throws SQLException
+	        (Connection connection, String sql, boolean returnGeneratedKeys, Object... values) throws SQLException
 	    {
 	        PreparedStatement statement = connection.prepareStatement(sql,
 	            returnGeneratedKeys ? Statement.RETURN_GENERATED_KEYS : Statement.NO_GENERATED_KEYS);

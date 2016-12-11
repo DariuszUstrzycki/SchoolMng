@@ -30,11 +30,13 @@ public class SubjectDAO implements SubjectDAOInterface {
 
 		Object[] values = { subject.getName() };
 
-		final String SQL_INSERT = "INSERT INTO " + TABLE + " (subjectName)" + " VALUES(?)";
+		String SQL_INSERT = "INSERT INTO " + TABLE + " (idSubject, subjectName)" + " VALUES(null, ?)";
 
 		try (Connection connection = MySqlDAOFactory.createConnection();
 				PreparedStatement statement = DbUtils.prepareStatement(connection, SQL_INSERT, true, values);) {
+
 			int affectedRows = statement.executeUpdate();
+
 			if (affectedRows == 0) {
 				throw new DAOException("Creating subject failed, no rows affected.");
 			}
@@ -47,7 +49,13 @@ public class SubjectDAO implements SubjectDAOInterface {
 				}
 			}
 		} catch (SQLException e) {
-			throw new DAOException(e);
+			
+			
+			if (e.getErrorCode() == 1062) {
+				throw new IllegalArgumentException("The subject is already in the database.", e);
+			} else {
+				throw new DAOException(e);
+			}
 		}
 
 	}
@@ -182,9 +190,9 @@ public class SubjectDAO implements SubjectDAOInterface {
 	// Helpers ------------------------------------------------------------------------------------
 
     /**
-     * Map the current row of the given ResultSet to an User.
-     * @param resultSet The ResultSet of which the current row is to be mapped to an User.
-     * @return The mapped User from the current row of the given ResultSet.
+     * Map the current row of the given ResultSet to a Subject.
+     * @param resultSet The ResultSet of which the current row is to be mapped to a Subject.
+     * @return The mapped Subject from the current row of the given ResultSet.
      * @throws SQLException If something fails at database level.
      */
     private static Subject map(ResultSet resultSet) throws SQLException {
@@ -198,7 +206,7 @@ public class SubjectDAO implements SubjectDAOInterface {
 	// END CLASS ------------------------------------------------------------------------------------
 
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		
 		String DATABASE_URL = "jdbc:mysql://localhost:3306/SchoolMng";
 		String DISABLE_SSL = "?autoReconnect=true&useSSL=false";
@@ -212,10 +220,19 @@ public class SubjectDAO implements SubjectDAOInterface {
 		Subject sub = new Subject();
 		
 		//// TESTING INSERT
-		sub.setName("Bio");
+		sub.setName("Zulu12");
 		dao.insertSubject(sub);
 		long bioID = sub.getId();
 		System.out.println("1.Expected some id number: " + bioID);
+		
+		Subject sub2 = new Subject();
+		sub2.setName("Portugese");
+		dao.insertSubject(sub2);
+		
+		//// TESTING INSERT DUPLICATE
+		Subject duplicate = new Subject();
+		duplicate.setName("Bio");
+		dao.insertSubject(duplicate);
 		
 		//// TESTING SELECT BY NAME
 		System.out.println("2.Expected Bio: " + dao.selectSubjectByName("Bio"));
@@ -229,7 +246,8 @@ public class SubjectDAO implements SubjectDAOInterface {
 		Subject sbjct = new Subject();
 		sbjct.setName("Niem");
 		dao.insertSubject(sbjct);
-		sbjct = dao.selectSubjectByName("Niem");
+		//sbjct = dao.selectSubjectByName("Niem");
+		//System.out.println(sbjct);
 		//long id = sbjct.getId();
 		
 		sbjct.setName("Niemiecki");
@@ -270,67 +288,10 @@ public class SubjectDAO implements SubjectDAOInterface {
 		
 		System.out.println("--------------------END TESTING dao------------------------");
 		
-	}
+	}*/
 
-
-	
 
 
 	
-
-	
-	
-	///OLD DELETE METHOD with transaction
-	
-	
-	//////////////////////////
-	//connection.setAutoCommit(false); // albo daj do kazdej metody osobno
-	
-	/*// przepisalem to co by³o dla insert method
-	// uzyc rollback i commit?!
-	int rowCount = 0;
-
-	try {
-
-		insertNewSubject.setString(1, subject.getName());
-		rowCount = insertNewSubject.executeUpdate();
-		// System.out.println(rowCount);
-
-		// commit after execute()
-	    connection.commit();
-
-	} catch (SQLException sqlException) {
-		// System.out.println("Error: " + sqlException.getErrorCode());
-		sqlException.printStackTrace();
-		DbUtils.printSQLException(sqlException);
-
-		// If there is an error then rollback the changes.
-		try {
-			if (connection != null)
-				connection.rollback();
-			
-			 System.err.print("Transaction is being rolled back");
-			 
-		} catch (SQLException sqlException2) {
-			sqlException2.printStackTrace();
-		}
-	} finally {
-		
-		// You avoid holding database locks for multiple statements, 
-		// which increases the likelihood of conflicts with other users.
-		try {
-			connection.setAutoCommit(true);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			
-		}
-		
-		DbUtils.closeQuietly(insertNewSubject);
-		DbUtils.closeQuietly(connection);
-		
-		
-	}
-
-	*/
 	
 }
