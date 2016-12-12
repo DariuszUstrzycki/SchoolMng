@@ -52,18 +52,6 @@ public abstract class AbstractMenu extends Screen {
 				} catch (NoSuchElementException e) {
 					System.out.println("Enter a corect menu option!");
 					scanner.nextLine();
-				} catch (IllegalStateException e) {
-					System.out.println(FATAL_ERROR_MESSAGE);
-					System.err.println("Possible problem with the scanner! Active menu: " + this.toString() 
-					+ "actionNumber: " + actionNumber + " Scanner is null: " + (scanner == null));
-					e.printStackTrace();
-					System.exit(1);
-				} catch (Exception e) {
-					System.out.println(FATAL_ERROR_MESSAGE);
-					System.err.println("Unknown problem. Active menu: " + this.toString() 
-					+ "actionNumber: " + actionNumber + " Scanner is null: " + (scanner == null));
-					e.printStackTrace();
-					System.exit(1);
 				} 
 
 			}

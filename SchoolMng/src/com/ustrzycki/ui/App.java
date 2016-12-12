@@ -29,16 +29,24 @@ public class App {
 
 	public static void main(String[] args) {
 			
-        //get DAO manager
-		DaoManager daoManager = DaoManager.getInstance(); 
-		
-		//get a DAOFactory and set it on the DAOManager
-		DAOFactory sqlDAOfactory  = new MySqlDAOFactory(DATABASE_URL + DISABLE_SSL, USER, PASS);
-		daoManager.setDAOFactory(sqlDAOfactory);
-		
-		//get UI and start it
-		UserInterface userInterface = new ConsoleUI();
-		userInterface.showUI();
+        try {
+			//get DAO manager
+			DaoManager daoManager = DaoManager.getInstance(); 
+			
+			//get a DAOFactory and set it on the DAOManager
+			DAOFactory sqlDAOfactory  = new MySqlDAOFactory(DATABASE_URL + DISABLE_SSL, USER, PASS);
+			daoManager.setDAOFactory(sqlDAOfactory);
+			
+			//get UI and start it
+			UserInterface userInterface = new ConsoleUI();
+			userInterface.showUI();
+		} catch (Exception e) {
+			System.out.println("The application will close due to a serious error. "
+					+ "Contact your system administrator.");
+			
+			e.printStackTrace();
+			System.exit(1);
+		} 
 		
 	}
 	

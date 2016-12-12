@@ -68,19 +68,7 @@ public abstract class AbstractSequence extends Screen{
 			} catch (NoSuchElementException | IllegalArgumentException e) {
 				System.out.println(e.getMessage() + "\nPlease Try Again.");
 				repeatLoop = true;
-			} catch (IllegalStateException e) {
-				System.out.println(FATAL_ERROR_MESSAGE);
-				System.err.println("Possible problem with the scanner! "
-									+ " Scanner is null: " + (scanner == null));
-				e.printStackTrace();
-				System.exit(1);
-			} catch (Exception e) {
-				System.out.println(FATAL_ERROR_MESSAGE);
-				System.err.println(">>>>>>>>>>>>>>>>>>>>>\nException when taking input.\nPROMPT: \n''" + prompt 
-									+ "''\nUSER INPUTt:\n''" + inputValue + "''\n<<<<<<<<<<<<<<<<<<<<<\n");
-				e.printStackTrace();
-				System.exit(1);
-			}
+			} 
 			
 			//System.out.println("End of LOOP...");
 
