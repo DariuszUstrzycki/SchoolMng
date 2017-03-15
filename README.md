@@ -30,6 +30,7 @@ CREATE TABLE Teachers (
 );
 
 CREATE TABLE Forms (
+
     idForm SMALLINT(3) AUTO_INCREMENT PRIMARY KEY,
     formName VARCHAR(30) NOT NULL UNIQUE,
     fk_tutor_idTeacher SMALLINT(5),
@@ -38,12 +39,14 @@ CREATE TABLE Forms (
 );
 
 CREATE TABLE Subjects (
+
     idSubject SMALLINT(3)  AUTO_INCREMENT PRIMARY KEY,
     subjectName VARCHAR(45) NOT NULL UNIQUE
 );
 
 
 CREATE TABLE Students (
+
     idStudent SMALLINT(3) AUTO_INCREMENT PRIMARY KEY,
     firstName VARCHAR(45) NOT NULL,
     lastname VARCHAR(45) NOT NULL,
@@ -58,6 +61,7 @@ CREATE TABLE Students (
 );
 
 CREATE TABLE TeachersSubjectsForms (
+
     fk_idTeacher SMALLINT(3),
     fk_idSubject SMALLINT(3),
     fk_idForm SMALLINT(3),
