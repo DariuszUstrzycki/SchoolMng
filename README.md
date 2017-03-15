@@ -18,6 +18,7 @@ CREATE DATABASE IF NOT EXISTS `'SchoolMng'` ;
 USE 'SchoolMng';
 
 CREATE TABLE Teachers (
+
     idTeacher SMALLINT(3) AUTO_INCREMENT PRIMARY KEY,
     firstName VARCHAR(45) NOT NULL,
     lastname VARCHAR(45) NOT NULL,
